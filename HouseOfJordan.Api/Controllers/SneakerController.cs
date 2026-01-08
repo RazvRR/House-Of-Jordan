@@ -1,4 +1,4 @@
-using HouseOfJordan.Api.Dtos;
+using HouseOfJordan.Api.DTOs;
 using HouseOfJordan.Api.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,43 +15,62 @@ namespace HouseOfJordan.Api.Controllers
             _sneakerService = sneakerService;
         }
 
-        /// <summary>
-        /// US1 – Adăugare sneaker
-        /// POST /api/sneakers
-        /// </summary>
-        [HttpPost]
-        public IActionResult AddSneaker([FromBody] CreateSneakerDto dto)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
 
-            var created = _sneakerService.AddSneaker(dto);
-            return CreatedAtAction(nameof(GetSneaker), new { id = created.Id }, created);
+        /// GET /api/sneakers - listare sneakers
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var sneakers = await _sneakerService.GetAllAsync();
+            return Ok(sneakers);
         }
 
-        // helper pentru CreatedAtAction (nu e în US, dar e util)
+        /// GET /api/sneakers/{id} - detalii sneaker
         [HttpGet("{id:int}")]
-        public IActionResult GetSneaker(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            return Ok(new { Message = $"Sneaker with id={id} would be returned here (demo)." });
+            var sneaker = await _sneakerService.GetByIdAsync(id);
+            if (sneaker == null)
+                return NotFound(new { message = $"Sneaker cu id={id} nu a fost găsit." });
+
+            return Ok(sneaker);
         }
 
-        /// <summary>
-        /// US2 – Actualizare sneaker
-        /// PUT /api/sneakers/{id}
-        /// </summary>
-        [HttpPut("{id:int}")]
-        public IActionResult UpdateSneaker(int id, [FromBody] UpdateSneakerDto dto)
+        /// POST /api/sneakers - creare sneaker
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] CreateSneakerDto dto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var updated = _sneakerService.UpdateSneaker(id, dto);
+            var created = await _sneakerService.AddSneakerAsync(dto);
 
+            // întoarce 201 + location către GET by id
+            return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+        }
+
+        /// PUT /api/sneakers/{id} - actualizare sneaker
+        [HttpPut("{id:int}")]
+        public async Task<IActionResult> Update(int id, [FromBody] UpdateSneakerDto dto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var updated = await _sneakerService.UpdateSneakerAsync(id, dto);
             if (updated == null)
                 return NotFound(new { message = $"Sneaker cu id={id} nu a fost găsit." });
 
             return Ok(updated);
+        }
+
+        /// DELETE /api/sneakers/{id} - ștergere sneaker
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var ok = await _sneakerService.DeleteSneakerAsync(id);
+            if (!ok)
+                return NotFound(new { message = $"Sneaker cu id={id} nu a fost găsit." });
+
+            return NoContent();
         }
     }
 }

@@ -1,11 +1,14 @@
-using HouseOfJordan.Api.Dtos;
+using HouseOfJordan.Api.DTOs;
 using HouseOfJordan.Api.Models;
 
 namespace HouseOfJordan.Api.Services
 {
     public interface ISneakerService
     {
-        Sneaker AddSneaker(CreateSneakerDto dto);             // POST
-        Sneaker? UpdateSneaker(int id, UpdateSneakerDto dto); // PUT
+        Task<List<Sneaker>> GetAllAsync();
+        Task<Sneaker?> GetByIdAsync(int id);
+        Task<Sneaker> AddSneakerAsync(CreateSneakerDto dto);
+        Task<Sneaker?> UpdateSneakerAsync(int id, UpdateSneakerDto dto);
+        Task<bool> DeleteSneakerAsync(int id);
     }
 }
