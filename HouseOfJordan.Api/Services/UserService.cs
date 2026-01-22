@@ -39,7 +39,8 @@ namespace HouseOfJordan.Api.Services
             var user = await _context.Users.FindAsync(id);
             if (user == null) return null;
 
-            user.Username = dto.Username;
+            if (dto.Username != null)
+                user.Username = dto.Username;
             await _context.SaveChangesAsync();
 
             return user;

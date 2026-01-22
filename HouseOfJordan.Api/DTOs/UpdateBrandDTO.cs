@@ -1,6 +1,9 @@
-namespace DefaultNamespace;
+using System.ComponentModel.DataAnnotations;
 
-public class UpdateBrandDTO
+namespace HouseOfJordan.Api.DTOs
 {
-    
+    public class UpdateBrandDto
+    {
+        public string? Name { get; set; }
+    }
 }

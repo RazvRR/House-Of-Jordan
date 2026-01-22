@@ -56,13 +56,20 @@ namespace HouseOfJordan.Api.Services
             if (sneaker == null)
                 return null;
 
-            sneaker.BrandId = dto.BrandId;
-            sneaker.UserId = dto.UserId;
-            sneaker.Model = dto.Model;
-            sneaker.Colorway = dto.Colorway;
-            sneaker.Year = dto.Year;
-            sneaker.Price = dto.Price;
-            sneaker.Size = dto.Size;
+            if (dto.BrandId.HasValue)
+                sneaker.BrandId = dto.BrandId.Value;
+            if (dto.UserId.HasValue)
+                sneaker.UserId = dto.UserId.Value;
+            if (dto.Model != null)
+                sneaker.Model = dto.Model;
+            if (dto.Colorway != null)
+                sneaker.Colorway = dto.Colorway;
+            if (dto.Year.HasValue)
+                sneaker.Year = dto.Year.Value;
+            if (dto.Price.HasValue)
+                sneaker.Price = dto.Price.Value;
+            if (dto.Size != null)
+                sneaker.Size = dto.Size;
 
             await _context.SaveChangesAsync();
             return await GetByIdAsync(id);
