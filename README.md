@@ -2,7 +2,7 @@
 
 API REST pentru gestionarea unei colecții de sneakers Jordan, construit cu ASP.NET Core și Entity Framework Core.
 
-## 📋 Descriere
+##  Descriere
 
 Aplicația permite:
 - Gestionarea brandurilor de sneakers
@@ -10,7 +10,7 @@ Aplicația permite:
 - Gestionarea sneakers-urilor (adidași)
 - Gestionarea wishlist-urilor (lista de dorințe pentru fiecare utilizator)
 
-## 🛠️ Tehnologii
+##  Tehnologii
 
 - **.NET 10.0** - Framework principal
 - **ASP.NET Core Web API** - API REST
@@ -19,7 +19,7 @@ Aplicația permite:
 - **Swagger/OpenAPI** - Documentație interactivă
 - **Docker** - Containerizare
 
-## 🚀 Cum să rulezi aplicația cu Docker
+##  Cum să rulezi aplicația cu Docker
 
 ### Cerințe:
 - [Docker Desktop](https://www.docker.com/products/docker-desktop) instalat și pornit
@@ -48,7 +48,7 @@ Aplicația permite:
    docker-compose down
    ```
 
-## 🚀 Cum să rulezi aplicația fără Docker
+## Cum să rulezi aplicația fără Docker
 
 ### Cerințe:
 - [.NET 10.0 SDK](https://dotnet.microsoft.com/download/dotnet/10.0) instalat
@@ -74,7 +74,7 @@ Aplicația permite:
 
    Deschide browser-ul la: **http://localhost:5193/swagger**
 
-## 📖 API Endpoints
+##  API Endpoints
 
 ### Brands
 - `GET /api/brands` - Listează toate brandurile
@@ -102,7 +102,7 @@ Aplicația permite:
 - `POST /api/users/{userId}/wishlist` - Adaugă în wishlist
 - `DELETE /api/users/{userId}/wishlist/{itemId}` - Șterge din wishlist
 
-## 📝 Exemple de Request-uri
+## Exemple de Request-uri
 
 ### Creează un Brand
 ```bash
@@ -150,7 +150,7 @@ Content-Type: application/json
 }
 ```
 
-## 🗄️ Structura Bazei de Date
+##  Structura Bazei de Date
 
 ### Brands
 - `Id` (PK) - Identificator unic
@@ -175,7 +175,7 @@ Content-Type: application/json
 - `UserId` (FK) - Referință către User
 - `SneakerId` (FK) - Referință către Sneaker
 
-## 📁 Structura Proiectului
+##  Structura Proiectului
 
 ```
 HouseOfJordan.Api/
@@ -188,7 +188,7 @@ HouseOfJordan.Api/
 └── Program.cs       # Configurare aplicație
 ```
 
-## 👨‍💻 Autor
+##  Autor
 
 Proiect realizat pentru cursul de Programare Web
 
